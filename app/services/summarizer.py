@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import List, Optional, Dict
 import re, math, os
 import nltk
+nltk.download('punkt')
 from collections import Counter, defaultdict
 
 # Ensure punkt is available.....
