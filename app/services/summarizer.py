@@ -4,7 +4,7 @@ import re, math, os
 import nltk
 from collections import Counter, defaultdict
 
-# Ensure punkt is available
+# Ensure punkt is available.....
 try:
     nltk.data.find('tokenizers/punkt')
 except LookupError:
