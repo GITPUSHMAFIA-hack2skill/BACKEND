@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Trusted guidance for every legal decision you face.">
+    <title>Legal Logic</title>
+    <!-- Favicon link -->
+    <link rel="icon" href="https://i.ibb.co/L50Hw5j/Legal-Logic-Logo.png" type="image/png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .header-logo {
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+        }
+        .main-card {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+    <!-- Tailwind CSS Custom Colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#003366',
+                        accent: '#6699CC',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-100 flex flex-col min-h-screen">
+
+    <!-- Header Section -->
+    <header class="bg-white shadow-sm p-4 sticky top-0 z-50">
+        <div class="container mx-auto flex items-center justify-between">
+            <div class="flex items-center cursor-pointer" id="header-upload-link">
+                <!-- Logo -->
+                <img src="C:\Users\HP\Downloads\WhatsApp Image 2025-09-06 at 4.56.26 PM.jpeg" alt="Legal Logic Logo" class="h-10 w-10 header-logo rounded-full">
+                <h1 class="ml-3 text-2xl font-bold text-gray-900">Legal Logic</h1>
+            </div>
+            <nav>
+                <!-- Navigation links or buttons can go here -->
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Section -->
+    <main class="flex-grow flex items-center justify-center p-4">
+        <div class="w-full max-w-2xl bg-white p-8 rounded-lg main-card">
+            <h2 class="text-3xl font-semibold text-gray-800 text-center mb-6">Your Trusted Legal Advisor</h2>
+            <p class="text-center text-gray-600 mb-8">
+                Effortlessly get legal advice by analyzing your documents. Our system provides
+                clear, concise, and conditional guidance to help you navigate legal decisions.
+            </p>
+
+            <!-- Document Upload Section -->
+            <div id="upload-section" class="space-y-6 mb-8">
+                <div>
+                    <label for="document-upload" class="block text-xl font-medium text-gray-700 text-center mb-4">Upload Your Legal Document</label>
+                    <div id="upload-box" class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-primary border-dashed rounded-md hover:bg-gray-50 transition-colors duration-200 cursor-pointer">
+                        <div class="space-y-1 text-center">
+                            <svg class="mx-auto h-12 w-12 text-primary" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                <path d="M28 8H12a2 2 0 00-2 2v20m30-16h-16a2 2 0 00-2 2v16a2 2 0 002 2h16a2 2 0 002-2V12a2 2 0 00-2-2z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <div class="text-sm text-gray-600">
+                                <p>Click to upload or drag and drop</p>
+                            </div>
+                            <p class="text-xs text-gray-500">PDF, DOCX, TXT up to 10MB</p>
+                        </div>
+                    </div>
+                    <input id="file-upload" name="file-upload" type="file" class="sr-only">
+                </div>
+            </div>
+
+            <!-- Text Input Section -->
+            <div id="write-section" class="space-y-6 mb-8">
+                <label for="document-text" class="sr-only">Ask a legal query</label>
+                <textarea id="document-text" rows="5" class="shadow-sm focus:ring-accent focus:border-accent block w-full sm:text-sm border border-gray-300 rounded-lg p-4" placeholder="Ask a legal question here..."></textarea>
+            </div>
+
+            <div class="text-center">
+                <button id="get-advice-button" class="inline-flex items-center px-8 py-4 border-2 border-primary text-base font-bold rounded-md shadow-sm text-primary bg-white hover:bg-primary hover:text-white transition duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    Get Advice
+                </button>
+            </div>
+            
+            <!-- Message Box for user feedback -->
+            <div id="message-box" class="hidden mt-4 p-3 rounded-md text-sm text-center font-medium bg-red-100 text-red-800 border border-red-200" role="alert">
+                Please upload a document or enter a query to get advice.
+            </div>
+
+            <!-- Legal Advice Output Section (Initially hidden) -->
+            <div id="advice-output" class="hidden mt-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Legal Advice</h3>
+                <div id="advice-content" class="prose max-w-none text-gray-700">
+                    <!-- The legal advice content will be injected here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white text-center p-4">
+        <p class="text-sm">&copy; <span id="current-year"></span> Legal Logic. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            const fileInput = document.getElementById('file-upload');
+            const textInput = document.getElementById('document-text');
+            const getAdviceButton = document.getElementById('get-advice-button');
+            const adviceOutput = document.getElementById('advice-output');
+            const adviceContent = document.getElementById('advice-content');
+            const messageBox = document.getElementById('message-box');
+            const uploadBox = document.getElementById('upload-box');
+            const headerUploadLink = document.getElementById('header-upload-link');
+
+            // Make the entire upload box clickable
+            uploadBox.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            // Make the header logo clickable
+            headerUploadLink.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            // Example legal advice (replace with your actual logic later)
+            const mockAdvice = `
+                <p>Based on your input, here is the conditional legal advice:</p>
+                <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-md mt-4">
+                    <p class="font-bold">Scenario 1: Breach of Contract</p>
+                    <p><strong>IF</strong> the other party fails to deliver goods by the agreed-upon date,</p>
+                    <p><strong>THEN</strong> you have the right to terminate the contract and seek damages for any losses incurred.</p>
+                </div>
+                <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md mt-4">
+                    <p class="font-bold">Scenario 2: Termination Clause</p>
+                    <p><strong>IF</strong> you decide to terminate the contract before the project is completed,</p>
+                    <p><strong>THEN</strong> you must provide a 30-day written notice and pay a penalty fee equal to 10% of the remaining contract value.</p>
+                </div>
+                <p class="mt-4">
+                    <strong>Disclaimer:</strong> This is a simplified analysis and not a substitute for professional legal counsel.
+                </p>
+            `;
+
+            getAdviceButton.addEventListener('click', () => {
+                const file = fileInput.files[0];
+                const text = textInput.value;
+
+                if (file) {
+                    messageBox.classList.add('hidden');
+                    console.log('Analyzing uploaded file:', file.name);
+                    // In a real app, you would send the file to your backend for analysis here
+                    
+                    // Show the output section and populate with the mock advice
+                    adviceContent.innerHTML = mockAdvice;
+                    adviceOutput.classList.remove('hidden');
+                    adviceOutput.scrollIntoView({ behavior: 'smooth' });
+
+                } else if (text.trim() !== '') {
+                    messageBox.classList.add('hidden');
+                    console.log('Analyzing written text:', text.trim().substring(0, 50) + '...');
+                    // In a real app, you would send the text to your backend for analysis here
+                    
+                    // Show the output section and populate with the mock advice
+                    adviceContent.innerHTML = mockAdvice;
+                    adviceOutput.classList.remove('hidden');
+                    adviceOutput.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                    messageBox.classList.remove('hidden');
+                    console.log('No input provided.');
+                    // Scroll to the message box
+                    messageBox.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
