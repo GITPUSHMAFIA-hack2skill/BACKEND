@@ -24,10 +24,11 @@ def extractive_summary(text: str, max_sentences: int = 7) -> str:
     pass
 
 # LLMClient as before
-
+class LLMClient:
 async def abstractive_summary_llm(llm: LLMClient, document_text: str) -> str:
     prompt = [
         { "role": "system", "content": "..." },
         { "role": "user", "content": f"Summarize the following legal document ..." }
     ]
-    return await llm.chat(prompt)
+   response = await llm.chat(prompt)
+return response
