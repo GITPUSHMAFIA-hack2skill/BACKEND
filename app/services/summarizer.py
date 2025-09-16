@@ -6,13 +6,7 @@ import nltk
 from collections import Counter
 
 # Ensure punkt is available; do not attempt to download automatically.
-try:
-    nltk.download('punkt')
-except LookupError:
-    raise RuntimeError(
-        "NLTK punkt tokenizer not found. "
-        "Please install it with nltk.download('punkt') or ensure it exists in your nltk_data folder."
-    )
+
     try: 
         nltk.download('punkt_tab')
     except LookupError:
