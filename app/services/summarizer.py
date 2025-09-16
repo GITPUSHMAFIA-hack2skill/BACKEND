@@ -6,13 +6,13 @@ import nltk
 from collections import Counter
 
 # Ensure punkt is available; do not attempt to download automatically.
-
-    try: 
-        nltk.download('punkt_tab')
-    except LookupError:
-        raise RuntimeError(
-            "NLTK punkt_tab not found"
-        )
+try:
+    nltk.download('punkt')
+except LookupError:
+    raise RuntimeError(
+        "NLTK punkt tokenizer not found. "
+        "Please install it with nltk.download('punkt') or ensure it exists in your nltk_data folder."
+    )
 
 def sentence_split(text: str) -> List[str]:
     from nltk.tokenize import sent_tokenize
