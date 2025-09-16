@@ -7,7 +7,7 @@ from collections import Counter
 
 # Ensure punkt is available; do not attempt to download automatically.
 try:
-    nltk.data.find('tokenizers/punkt')
+    nltk.download('punkt')
 except LookupError:
     raise RuntimeError(
         "NLTK punkt tokenizer not found. "
