@@ -13,6 +13,12 @@ except LookupError:
         "NLTK punkt tokenizer not found. "
         "Please install it with nltk.download('punkt') or ensure it exists in your nltk_data folder."
     )
+    try: 
+        nltk.download('punkt_tab')
+    except LookupError:
+        raise RuntimeError(
+            "NLTK punkt_tab not found"
+        )
 
 def sentence_split(text: str) -> List[str]:
     from nltk.tokenize import sent_tokenize
